@@ -24,9 +24,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DAL\" />
 	  <Folder Include="Data\" />
 	  <Folder Include="BLL\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SQLite" Version="3.1.5" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
