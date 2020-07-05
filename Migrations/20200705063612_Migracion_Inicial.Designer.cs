@@ -9,7 +9,7 @@ using rDetallado_PedidosSuplidores.DAL;
 namespace rDetallado_PedidosSuplidores.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20200705052621_Migracion_Inicial")]
+    [Migration("20200705063612_Migracion_Inicial")]
     partial class Migracion_Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,15 +47,22 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Costo")
+                    b.Property<int>("OrdenId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("OrdenId")
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SuplidorId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrdenId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.HasIndex("SuplidorId");
 
                     b.ToTable("OrdenesDetalle");
                 });
@@ -85,14 +92,14 @@ namespace rDetallado_PedidosSuplidores.Migrations
                             ProductoId = 1,
                             Costo = 50.0,
                             Descripcion = "Pan",
-                            Inventario = 0.0
+                            Inventario = 87.0
                         },
                         new
                         {
                             ProductoId = 2,
                             Costo = 179.0,
                             Descripcion = "Jugo de Naranja",
-                            Inventario = 0.0
+                            Inventario = 53.0
                         });
                 });
 
@@ -127,6 +134,18 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.HasOne("rDetallado_PedidosSuplidores.Entidades.Ordenes", null)
                         .WithMany("Detalle")
                         .HasForeignKey("OrdenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Productos", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Suplidores", "Suplidor")
+                        .WithMany()
+                        .HasForeignKey("SuplidorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

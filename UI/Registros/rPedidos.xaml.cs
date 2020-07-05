@@ -26,7 +26,7 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             //——————————————————————————[ VALORES DEL ComboBox Suplidores]——————————————————————————
             SuplidorIdComboBox.SelectedValuePath = "SuplidorId";
             SuplidorIdComboBox.DisplayMemberPath = "Nombres";
-            SuplidorIdComboBox.ItemsSource = ProductosBLL.GetList();
+            SuplidorIdComboBox.ItemsSource = SuplidoresBLL.GetList();
 
             //——————————————————————————[ VALORES DEL ComboBox Productos]——————————————————————————
             ProductoIdComboBox.SelectedValuePath = "ProductoId";
@@ -82,8 +82,8 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             var filaDetalle = new OrdenesDetalle
             {
                 OrdenId = this.ordenes.OrdenId,
+                ProductoId = Convert.ToInt32(ProductoIdComboBox.SelectedValue.ToString()),
                 Cantidad = Convert.ToInt32(CantidadTextBox.Text),
-                Costo = (int)Convert.ToDouble(CostoTextBox.Text.ToString())
             };
 
             //Todo: Evitar que se agrege el mismo jugador 2 veces.
@@ -93,7 +93,6 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             SuplidorIdComboBox.SelectedIndex = -1;
             ProductoIdComboBox.SelectedIndex = -1;
             CantidadTextBox.Clear();
-            CostoTextBox.Clear();
         }
         //—————————————————————————————————————————————————————[ REMOVER FILA ]—————————————————————————————————————————————————————
         private void RemoverFilaButton_Click(object sender, RoutedEventArgs e)

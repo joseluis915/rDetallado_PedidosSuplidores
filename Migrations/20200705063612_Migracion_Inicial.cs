@@ -57,8 +57,9 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrdenId = table.Column<int>(nullable: false),
+                    ProductoId = table.Column<int>(nullable: false),
                     Cantidad = table.Column<int>(nullable: false),
-                    Costo = table.Column<int>(nullable: false)
+                    SuplidorId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,17 +70,29 @@ namespace rDetallado_PedidosSuplidores.Migrations
                         principalTable: "Ordenes",
                         principalColumn: "OrdenId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenesDetalle_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "ProductoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenesDetalle_Suplidores_SuplidorId",
+                        column: x => x.SuplidorId,
+                        principalTable: "Suplidores",
+                        principalColumn: "SuplidoresId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 1, 50.0, "Pan", 0.0 });
+                values: new object[] { 1, 50.0, "Pan", 87.0 });
 
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 2, 179.0, "Jugo de Naranja", 0.0 });
+                values: new object[] { 2, 179.0, "Jugo de Naranja", 53.0 });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
@@ -95,6 +108,16 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "IX_OrdenesDetalle_OrdenId",
                 table: "OrdenesDetalle",
                 column: "OrdenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenesDetalle_ProductoId",
+                table: "OrdenesDetalle",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenesDetalle_SuplidorId",
+                table: "OrdenesDetalle",
+                column: "SuplidorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -103,13 +126,13 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "OrdenesDetalle");
 
             migrationBuilder.DropTable(
+                name: "Ordenes");
+
+            migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
                 name: "Suplidores");
-
-            migrationBuilder.DropTable(
-                name: "Ordenes");
         }
     }
 }
