@@ -32,11 +32,11 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                             <Label Content="ProductoId"/>
-                            <ComboBox x:Name="JugadoresComboBox" Width="100"/>
+                            <ComboBox x:Name="ProductoIdComboBox" Width="100"/>
                             <Label Content="Cantidad"/>
                             <TextBox x:Name="CantidadTextBox" Width="100"/>
                             <Label Content="Costo"/>
-                            <TextBox x:Name="PosicionTextBox" Width="100"/>
+                            <TextBox x:Name="CostoTextBox" Width="100"/>
                             <Label Content="Inventario"/>
                             <TextBox x:Name="InventarioTextBox" Width="100"/>
                         </StackPanel>
@@ -60,6 +60,7 @@
                         <!--——————————————————————————————————————————————[ DATA GRID ]——————————————————————————————————————————————-->
                         <DataGrid x:Name="DetalleDataGrid" ItemsSource="{Binding Detalle}" Height="80" AutoGenerateColumns="False" Margin="0,10,0,0">
                             <DataGrid.Columns>
+                                <DataGridTextColumn Header="PedidoId" Binding="{Binding OrdenId}"/>
                                 <DataGridTextColumn Header="ProductoId" Binding="{Binding ProductoId}"/>
                                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}"/>
                                 <DataGridTextColumn Header="Costo" Binding="{Binding Costo}"/>
