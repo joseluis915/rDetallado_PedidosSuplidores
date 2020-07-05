@@ -12,14 +12,16 @@ using System.Windows.Shapes;
 
 namespace rDetallado_PedidosSuplidores.UI.Consultas
 {
-    /// <summary>
-    /// Interaction logic for cPedidos.xaml
-    /// </summary>
     public partial class cPedidos : Window
     {
         public cPedidos()
         {
             InitializeComponent();
+        }
+
+        private void ConsultarButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
