@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using rDetallado_PedidosSuplidores.UI.Registros;
 
 namespace rDetallado_PedidosSuplidores
 {
@@ -22,12 +23,13 @@ namespace rDetallado_PedidosSuplidores
             InitializeComponent();
         }
 
-        private void rPartidaMenuItem_Click(object sender, RoutedEventArgs e)
+        private void rPedidosMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            rPedidos rPedidos = new rPedidos();
+            rPedidos.Show();
         }
 
-        private void cJugadasMenuItem_Click(object sender, RoutedEventArgs e)
+        private void cPedidosMenuItem_Click(object sender, RoutedEventArgs e)
         {
 
         }
