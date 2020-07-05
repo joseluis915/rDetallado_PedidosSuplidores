@@ -62,7 +62,7 @@
                                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}"/>
                                 <DataGridTextColumn Header="Costo" Binding="{Binding Producto.Costo}"/>
                                 <DataGridTextColumn Header="Inventario" Binding="{Binding Producto.Inventario}"/>
-                                <DataGridTextColumn Header="Suplidor" Binding="{Binding Suplidor.Nombres}"/>
+                                <!--<DataGridTextColumn Header="Suplidor" Binding="{Binding Suplidor.Nombres}"/>-->
                             </DataGrid.Columns>
                         </DataGrid>
 

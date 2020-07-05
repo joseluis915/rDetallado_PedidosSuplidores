@@ -76,12 +76,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
                         principalTable: "Productos",
                         principalColumn: "ProductoId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrdenesDetalle_Suplidores_SuplidorId",
-                        column: x => x.SuplidorId,
-                        principalTable: "Suplidores",
-                        principalColumn: "SuplidoresId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -113,11 +107,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "IX_OrdenesDetalle_ProductoId",
                 table: "OrdenesDetalle",
                 column: "ProductoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrdenesDetalle_SuplidorId",
-                table: "OrdenesDetalle",
-                column: "SuplidorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -126,13 +115,13 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "OrdenesDetalle");
 
             migrationBuilder.DropTable(
+                name: "Suplidores");
+
+            migrationBuilder.DropTable(
                 name: "Ordenes");
 
             migrationBuilder.DropTable(
                 name: "Productos");
-
-            migrationBuilder.DropTable(
-                name: "Suplidores");
         }
     }
 }

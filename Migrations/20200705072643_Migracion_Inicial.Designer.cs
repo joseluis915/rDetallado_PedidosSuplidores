@@ -9,7 +9,7 @@ using rDetallado_PedidosSuplidores.DAL;
 namespace rDetallado_PedidosSuplidores.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20200705063612_Migracion_Inicial")]
+    [Migration("20200705072643_Migracion_Inicial")]
     partial class Migracion_Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,8 +61,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.HasIndex("OrdenId");
 
                     b.HasIndex("ProductoId");
-
-                    b.HasIndex("SuplidorId");
 
                     b.ToTable("OrdenesDetalle");
                 });
@@ -140,12 +138,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.HasOne("rDetallado_PedidosSuplidores.Entidades.Productos", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Suplidores", "Suplidor")
-                        .WithMany()
-                        .HasForeignKey("SuplidorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

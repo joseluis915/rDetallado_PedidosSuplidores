@@ -60,8 +60,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.HasIndex("SuplidorId");
-
                     b.ToTable("OrdenesDetalle");
                 });
 
@@ -138,12 +136,6 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.HasOne("rDetallado_PedidosSuplidores.Entidades.Productos", "Producto")
                         .WithMany()
                         .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Suplidores", "Suplidor")
-                        .WithMany()
-                        .HasForeignKey("SuplidorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

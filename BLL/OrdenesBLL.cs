@@ -151,7 +151,6 @@ namespace rDetallado_PedidosSuplidores.BLL
                 ordenes = contexto.Ordenes
                     .Where(p => p.OrdenId == id)
                     .Include(p => p.Detalle).ThenInclude(d => d.Producto)
-                    .Include(p => p.Detalle).ThenInclude(s => s.Suplidor)
                     .SingleOrDefault();
             }
             catch (Exception)

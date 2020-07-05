@@ -19,7 +19,7 @@ namespace rDetallado_PedidosSuplidores.Entidades
         public int Cantidad { get; set; }
         public int SuplidorId { get; set; }
         
-        [ForeignKey("SuplidorId")]
-        public Suplidores Suplidor { get; set; } = new Suplidores();
+        //[ForeignKey("SuplidorId")]
+        //public Suplidores Suplidor { get; set; } = new Suplidores();
     }
 }
