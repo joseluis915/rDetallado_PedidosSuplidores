@@ -70,7 +70,7 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             }
             else
             {
-                MessageBox.Show($"La Id de Partida no fue encontrada.\n\nAsegurese que existe o cree una nueva.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"Este pedido no fue encontrado.\n\nAsegurese que existe o cree uno nuevo.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Limpiar();
                 PedidoIdTextbox.Text = "";
                 PedidoIdTextbox.Focus();
