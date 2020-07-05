@@ -26,7 +26,6 @@
 	<ItemGroup>
 	  <Folder Include="DAL\" />
 	  <Folder Include="Data\" />
-	  <Folder Include="Entidades\" />
 	  <Folder Include="BLL\" />
 	</ItemGroup>
 
