@@ -28,7 +28,6 @@
 	  <Folder Include="Data\" />
 	  <Folder Include="Entidades\" />
 	  <Folder Include="BLL\" />
-	  <Folder Include="UI\Consultas\" />
 	</ItemGroup>
 
 	<ItemGroup>
