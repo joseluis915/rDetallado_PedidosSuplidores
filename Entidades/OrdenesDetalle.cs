@@ -5,7 +5,7 @@ using System.Text;
 
 namespace rDetallado_PedidosSuplidores.Entidades
 {
-    public class PartidasDetalle
+    public class OrdenesDetalle
     {
         [Key]
         public int Id { get; set; }
