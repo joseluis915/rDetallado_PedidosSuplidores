@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using rDetallado_PedidosSuplidores.UI.Consultas;
 using rDetallado_PedidosSuplidores.UI.Registros;
 
 namespace rDetallado_PedidosSuplidores
@@ -31,7 +32,8 @@ namespace rDetallado_PedidosSuplidores
 
         private void cPedidosMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            cPedidos cPedidos = new cPedidos();
+            cPedidos.Show();
         }
     }
 }

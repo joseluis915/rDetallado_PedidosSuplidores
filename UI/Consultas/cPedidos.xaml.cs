@@ -1,4 +1,7 @@
-﻿using System;
+﻿using rDetallado_PedidosSuplidores.BLL;
+using rDetallado_PedidosSuplidores.Entidades;
+using rPartidas_Juego.BLL;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,7 +24,32 @@ namespace rDetallado_PedidosSuplidores.UI.Consultas
 
         private void ConsultarButton_Click(object sender, RoutedEventArgs e)
         {
+            List<Ordenes> listado = new List<Ordenes>();
 
+            if (CriterioTextBox.Text.Trim().Length > 0)
+            {
+                switch (FiltroComboBox.SelectedIndex)
+                {
+                    case 0:
+                        listado = OrdenesBLL.GetList(p => p.OrdenId == Utilidades.ToInt(CriterioTextBox.Text));
+                        break;
+
+                    //case 1:
+                    //    listado = OrdenesBLL.GetList(p => p..Contains(CriterioTextBox.Text, StringComparison.OrdinalIgnoreCase));
+                    //    break;
+                }
+            }
+            else
+            {
+                listado = OrdenesBLL.GetList(c => true);
+            }
+            if (DesdeDatePicker.SelectedDate != null)
+                listado = (List<Ordenes>)OrdenesBLL.GetList(p => p.Fecha.Date >= DesdeDatePicker.SelectedDate);
+            if (HastaDatePicker.SelectedDate != null)
+                listado = (List<Ordenes>)OrdenesBLL.GetList(p => p.Fecha.Date <= HastaDatePicker.SelectedDate);
+
+            DatosDataGrid.ItemsSource = null;
+            DatosDataGrid.ItemsSource = listado;
         }
     }
 }
