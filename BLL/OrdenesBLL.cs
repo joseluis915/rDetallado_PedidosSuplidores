@@ -1,17 +1,18 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using rDetallado_PedidosSuplidores.Entidades;
+//Using agregados
+using System.Linq;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using rDetallado_PedidosSuplidores.DAL;
+using rDetallado_PedidosSuplidores.Entidades;
 
 namespace rDetallado_PedidosSuplidores.BLL
 {
     public class OrdenesBLL
     {
-        //——————————————————————————————————————————————[ GUARDAR ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ GUARDAR ]—————————————————————————————————————————————————————
         public static bool Guardar(Ordenes ordenes)
         {
             bool paso;
@@ -23,7 +24,7 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             return paso;
         }
-        //——————————————————————————————————————————————[ INSERTAR ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ INSERTAR ]—————————————————————————————————————————————————————
         public static bool Insertar(Ordenes ordenes)
         {
             Contexto contexto = new Contexto();
@@ -45,7 +46,7 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             return paso;
         }
-        //——————————————————————————————————————————————[ MODIFICAR ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ MODIFICAR ]—————————————————————————————————————————————————————
         public static bool Modificar(Ordenes ordenes)
         {
             Contexto contexto = new Contexto();
@@ -53,8 +54,7 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             try
             {
-                //Borrar el detalle anterior.
-                contexto.Database.ExecuteSqlRaw($"Delete From OrdenesDetalle Where OrdenId={ordenes.OrdenId}");
+                contexto.Database.ExecuteSqlRaw($"DELETE FROM OrdenesDetalle WHERE OrdenId={ordenes.OrdenId}");
 
                 foreach (var item in ordenes.Detalle)
                 {
@@ -75,17 +75,17 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             return paso;
         }
-        //——————————————————————————————————————————————[ ELIMINAR ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ ELIMINAR ]—————————————————————————————————————————————————————
         public static bool Eliminar(int id)
         {
             bool paso = false;
             Contexto contexto = new Contexto();
             try
             {
-                var ordenes = contexto.Ordenes.Find(id);
-                if (ordenes != null)
+                var devolucion = OrdenesBLL.Buscar(id);
+                if (devolucion != null)
                 {
-                    contexto.Ordenes.Remove(ordenes);
+                    contexto.Ordenes.Remove(devolucion);
                     paso = contexto.SaveChanges() > 0;
                 }
             }
@@ -97,9 +97,10 @@ namespace rDetallado_PedidosSuplidores.BLL
             {
                 contexto.Dispose();
             }
+
             return paso;
         }
-        //——————————————————————————————————————————————[ GETLIST ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ GETLIST ]—————————————————————————————————————————————————————
         public static List<Ordenes> GetList(Expression<Func<Ordenes, bool>> criterio)
         {
             List<Ordenes> lista = new List<Ordenes>();
@@ -117,9 +118,10 @@ namespace rDetallado_PedidosSuplidores.BLL
             {
                 contexto.Dispose();
             }
+
             return lista;
         }
-        //——————————————————————————————————————————————[ EXISTE ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ EXISTE ]—————————————————————————————————————————————————————
         public static bool Existe(int id)
         {
             bool encontrado = false;
@@ -127,7 +129,7 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             try
             {
-                encontrado = contexto.Ordenes.Any(p => p.OrdenId == id);
+                encontrado = contexto.Ordenes.Any(o => o.OrdenId == id);
             }
             catch (Exception)
             {
@@ -140,7 +142,7 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             return encontrado;
         }
-        //——————————————————————————————————————————————[ BUSCAR ]——————————————————————————————————————————————
+        //—————————————————————————————————————————————————————[ BUSCAR ]————————————————————————————————————————————————————
         public static Ordenes Buscar(int id)
         {
             Ordenes ordenes = new Ordenes();
@@ -149,8 +151,9 @@ namespace rDetallado_PedidosSuplidores.BLL
             try
             {
                 ordenes = contexto.Ordenes
-                    .Where(p => p.OrdenId == id)
-                    .Include(p => p.Detalle).ThenInclude(d => d.Producto)
+                    .Where(d => d.OrdenId == id)
+                    .Include(d => d.Detalle)
+                    .ThenInclude(p => p.productos)
                     .SingleOrDefault();
             }
             catch (Exception)

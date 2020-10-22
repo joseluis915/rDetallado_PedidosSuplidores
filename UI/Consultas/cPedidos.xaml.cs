@@ -1,6 +1,5 @@
 ﻿using rDetallado_PedidosSuplidores.BLL;
 using rDetallado_PedidosSuplidores.Entidades;
-using rPartidas_Juego.BLL;
 using System;
 using System.Collections.Generic;
 using System.Text;

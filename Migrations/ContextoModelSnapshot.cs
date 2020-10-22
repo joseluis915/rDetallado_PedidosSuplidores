@@ -33,12 +33,14 @@ namespace rDetallado_PedidosSuplidores.Migrations
 
                     b.HasKey("OrdenId");
 
+                    b.HasIndex("SuplidorId");
+
                     b.ToTable("Ordenes");
                 });
 
             modelBuilder.Entity("rDetallado_PedidosSuplidores.Entidades.OrdenesDetalle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrdenDetalle")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -54,7 +56,7 @@ namespace rDetallado_PedidosSuplidores.Migrations
                     b.Property<int>("SuplidorId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrdenDetalle");
 
                     b.HasIndex("OrdenId");
 
@@ -86,14 +88,14 @@ namespace rDetallado_PedidosSuplidores.Migrations
                         new
                         {
                             ProductoId = 1,
-                            Costo = 50.0,
+                            Costo = 45.5,
                             Descripcion = "Pan",
                             Inventario = 87.0
                         },
                         new
                         {
                             ProductoId = 2,
-                            Costo = 179.0,
+                            Costo = 180.94999999999999,
                             Descripcion = "Jugo de Naranja",
                             Inventario = 53.0
                         });
@@ -101,28 +103,37 @@ namespace rDetallado_PedidosSuplidores.Migrations
 
             modelBuilder.Entity("rDetallado_PedidosSuplidores.Entidades.Suplidores", b =>
                 {
-                    b.Property<int>("SuplidoresId")
+                    b.Property<int>("SuplidorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nombres")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("SuplidoresId");
+                    b.HasKey("SuplidorId");
 
                     b.ToTable("Suplidores");
 
                     b.HasData(
                         new
                         {
-                            SuplidoresId = 1,
+                            SuplidorId = 1,
                             Nombres = "Yoma"
                         },
                         new
                         {
-                            SuplidoresId = 2,
+                            SuplidorId = 2,
                             Nombres = "Rica"
                         });
+                });
+
+            modelBuilder.Entity("rDetallado_PedidosSuplidores.Entidades.Ordenes", b =>
+                {
+                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Suplidores", "suplidores")
+                        .WithMany()
+                        .HasForeignKey("SuplidorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("rDetallado_PedidosSuplidores.Entidades.OrdenesDetalle", b =>
@@ -133,7 +144,7 @@ namespace rDetallado_PedidosSuplidores.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Productos", "Producto")
+                    b.HasOne("rDetallado_PedidosSuplidores.Entidades.Productos", "productos")
                         .WithMany()
                         .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)

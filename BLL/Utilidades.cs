@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace rPartidas_Juego.BLL
+namespace rDetallado_PedidosSuplidores.BLL
 {
     public class Utilidades
     {

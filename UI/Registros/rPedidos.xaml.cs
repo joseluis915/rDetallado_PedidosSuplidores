@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using rDetallado_PedidosSuplidores.BLL;
 using rDetallado_PedidosSuplidores.Entidades;
-using rPartidas_Juego.BLL;
 
 namespace rDetallado_PedidosSuplidores.UI.Registros
 {
@@ -24,14 +23,14 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             this.DataContext = ordenes;
 
             //——————————————————————————[ VALORES DEL ComboBox Suplidores]——————————————————————————
+            SuplidorIdComboBox.ItemsSource = SuplidoresBLL.GetSuplidores();
             SuplidorIdComboBox.SelectedValuePath = "SuplidorId";
             SuplidorIdComboBox.DisplayMemberPath = "Nombres";
-            SuplidorIdComboBox.ItemsSource = SuplidoresBLL.GetList();
 
             //——————————————————————————[ VALORES DEL ComboBox Productos]——————————————————————————
+            ProductoIdComboBox.ItemsSource = ProductosBLL.GetProductos();
             ProductoIdComboBox.SelectedValuePath = "ProductoId";
             ProductoIdComboBox.DisplayMemberPath = "Descripcion";
-            ProductoIdComboBox.ItemsSource = ProductosBLL.GetList();
         }
         //—————————————————————————————————————————————————————[ CARGAR ]—————————————————————————————————————————————————————
         private void Cargar()
@@ -66,13 +65,12 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             {
                 ordenes = encontrado;
                 Cargar();
-                MessageBox.Show("Partida Encontrada", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
                 MessageBox.Show($"Este pedido no fue encontrado.\n\nAsegurese que existe o cree uno nuevo.", "ERROR", MessageBoxButton.OK, MessageBoxImage.Warning);
                 Limpiar();
-                PedidoIdTextbox.Text = "";
+                PedidoIdTextbox.Clear();
                 PedidoIdTextbox.Focus();
             }
         }
@@ -83,16 +81,16 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             {
                 OrdenId = this.ordenes.OrdenId,
                 ProductoId = Convert.ToInt32(ProductoIdComboBox.SelectedValue.ToString()),
-                Cantidad = Convert.ToInt32(CantidadTextBox.Text),
+                //productos = (Productos)ProductoIdComboBox.SelectedItem,
+                Cantidad = Convert.ToInt32(CantidadTextBox.Text)
             };
 
-            //Todo: Evitar que se agrege el mismo jugador 2 veces.
             this.ordenes.Detalle.Add(filaDetalle);
             Cargar();
 
-            SuplidorIdComboBox.SelectedIndex = -1;
             ProductoIdComboBox.SelectedIndex = -1;
             CantidadTextBox.Clear();
+            CantidadTextBox.Focus();
         }
         //—————————————————————————————————————————————————————[ REMOVER FILA ]—————————————————————————————————————————————————————
         private void RemoverFilaButton_Click(object sender, RoutedEventArgs e)

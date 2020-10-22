@@ -3,25 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace rDetallado_PedidosSuplidores.Migrations
 {
-    public partial class Migracion_Inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Ordenes",
-                columns: table => new
-                {
-                    OrdenId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Fecha = table.Column<DateTime>(nullable: false),
-                    SuplidorId = table.Column<int>(nullable: false),
-                    Monto = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ordenes", x => x.OrdenId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
@@ -41,20 +26,41 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "Suplidores",
                 columns: table => new
                 {
-                    SuplidoresId = table.Column<int>(nullable: false)
+                    SuplidorId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombres = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Suplidores", x => x.SuplidoresId);
+                    table.PrimaryKey("PK_Suplidores", x => x.SuplidorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ordenes",
+                columns: table => new
+                {
+                    OrdenId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SuplidorId = table.Column<int>(nullable: false),
+                    Fecha = table.Column<DateTime>(nullable: false),
+                    Monto = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ordenes", x => x.OrdenId);
+                    table.ForeignKey(
+                        name: "FK_Ordenes_Suplidores_SuplidorId",
+                        column: x => x.SuplidorId,
+                        principalTable: "Suplidores",
+                        principalColumn: "SuplidorId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OrdenesDetalle",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    OrdenDetalle = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     OrdenId = table.Column<int>(nullable: false),
                     ProductoId = table.Column<int>(nullable: false),
@@ -63,7 +69,7 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdenesDetalle", x => x.Id);
+                    table.PrimaryKey("PK_OrdenesDetalle", x => x.OrdenDetalle);
                     table.ForeignKey(
                         name: "FK_OrdenesDetalle_Ordenes_OrdenId",
                         column: x => x.OrdenId,
@@ -81,22 +87,27 @@ namespace rDetallado_PedidosSuplidores.Migrations
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 1, 50.0, "Pan", 87.0 });
+                values: new object[] { 1, 45.5, "Pan", 87.0 });
 
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 2, 179.0, "Jugo de Naranja", 53.0 });
+                values: new object[] { 2, 180.94999999999999, "Jugo de Naranja", 53.0 });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
-                columns: new[] { "SuplidoresId", "Nombres" },
+                columns: new[] { "SuplidorId", "Nombres" },
                 values: new object[] { 1, "Yoma" });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
-                columns: new[] { "SuplidoresId", "Nombres" },
+                columns: new[] { "SuplidorId", "Nombres" },
                 values: new object[] { 2, "Rica" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ordenes_SuplidorId",
+                table: "Ordenes",
+                column: "SuplidorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdenesDetalle_OrdenId",
@@ -115,13 +126,13 @@ namespace rDetallado_PedidosSuplidores.Migrations
                 name: "OrdenesDetalle");
 
             migrationBuilder.DropTable(
-                name: "Suplidores");
-
-            migrationBuilder.DropTable(
                 name: "Ordenes");
 
             migrationBuilder.DropTable(
                 name: "Productos");
+
+            migrationBuilder.DropTable(
+                name: "Suplidores");
         }
     }
 }
