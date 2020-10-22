@@ -9,7 +9,7 @@ using rDetallado_PedidosSuplidores.DAL;
 namespace rDetallado_PedidosSuplidores.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20201022040432_Inicial")]
+    [Migration("20201022044223_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
