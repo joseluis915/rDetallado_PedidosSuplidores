@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using rDetallado_PedidosSuplidores.BLL;
 using rDetallado_PedidosSuplidores.Entidades;
 
@@ -81,7 +72,7 @@ namespace rDetallado_PedidosSuplidores.UI.Registros
             {
                 OrdenId = this.ordenes.OrdenId,
                 ProductoId = Convert.ToInt32(ProductoIdComboBox.SelectedValue.ToString()),
-                //productos = (Productos)ProductoIdComboBox.SelectedItem,
+                productos = (Productos)ProductoIdComboBox.SelectedItem,
                 Cantidad = Convert.ToInt32(CantidadTextBox.Text)
             };
 

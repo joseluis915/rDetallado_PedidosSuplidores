@@ -32,6 +32,13 @@ namespace rDetallado_PedidosSuplidores.BLL
 
             try
             {
+                //—————————————————————[ Arregla el error de la linea 75 de rPedidos.xaml.cs ]———————————————————————
+                foreach (var item in ordenes.Detalle)
+                {
+                    contexto.Entry(item.productos).State = EntityState.Modified;
+                }
+                //———————————————————————————————————————————————————————————————————————————————————————————————————
+
                 contexto.Ordenes.Add(ordenes);
                 paso = contexto.SaveChanges() > 0;
             }
